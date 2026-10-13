@@ -3,7 +3,7 @@ import { readFile,writeFile,mkdir } from 'node:fs/promises';
 const result=await build({entryPoints:['src/main.js'],bundle:true,minify:true,format:'iife',write:false,loader:{'.css':'empty'},target:'es2020'});
 let html=await readFile('index.html','utf8');
 const css=await readFile('src/style.css','utf8');
-for (const name of ['wuhan-mark.png','favicon-32.png','icon-192.png','apple-touch-icon.png']) {
+for (const name of ['huanghelou-chubby.png','favicon-chubby-32.png','icon-chubby-192.png','apple-touch-chubby.png']) {
   const asset=await readFile(`public/${name}`);
   html=html.replaceAll(`./${name}`,`data:image/png;base64,${asset.toString('base64')}`);
 }
