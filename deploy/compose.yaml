@@ -1,0 +1,31 @@
+# Prebuilt static site image; shares ProxyLens's Caddy network.
+services:
+  cloudwuhan:
+    image: ${CLOUDWUHAN_IMAGE:-cloudwuhan:1.0.0}
+    ports:
+      - "127.0.0.1:18791:8080"
+    networks:
+      - caddy
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /config:size=8m
+      - /data:size=8m
+      - /tmp:size=8m
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+networks:
+  caddy:
+    external: true
+    name: caddy_default

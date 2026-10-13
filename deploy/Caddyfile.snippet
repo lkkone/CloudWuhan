@@ -1,0 +1,7 @@
+# CloudWuhan - service on this server
+wh.likaikai.com {
+  reverse_proxy cloudwuhan:8080
+  log {
+    output file /data/access.log
+  }
+}
